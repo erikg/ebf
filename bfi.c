@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include <sys/types.h>
+#include <sys/stat.h>
 #include <sys/uio.h>
 #include <fcntl.h>
 #include <unistd.h>
@@ -10,39 +11,43 @@
 
 #define PANIC(x, args...) { printf(x,##args); exit(-1); }
 
-char *heap, *ptr;
-int i = 0, fd;
+char heap[HEAPSIZE], *ptr, *program;
+int i = 0, proglen;
 
 void eval(char op) {
-    ++i;
-    switch(op) {
-	case '>': if((ptr-heap)<HEAPSIZE) ptr++; else PANIC("Past heap end at opcode: %d\n", i); break;
-	case '<': if(ptr>heap) ptr--; else PANIC("Before heap start at opcode: %d\n", i); break;
-	case '+': ++*ptr; break;
-	case '-': --*ptr; break;
-	case '.': putchar(*ptr); break;
-	case ',': *ptr = getchar(); break;
-	case '[': while(*ptr){ char op; read(fd, 
-	case ']': PANIC("NOOP! ]"); break;
-	default: break;
+    return;
+}
+
+void reduce(char *prog, int pl) {
+    char *np = prog;
+    int first=1;
+
+    while(pl--) {
+	if
     }
 }
 
 int
 main(int argc, char **argv) {
-    char op;
+    struct stat sb;
 
-    printf("%s\n", argv[1]);
-    if(argc<1 || (fd = open(argv[1], O_RDONLY)) == -1)
-	PANIC("usage:\n\t%s <program.bf>\n", *argv);
-
-    /* set up the heap */
-    ptr = heap = (char *)malloc(HEAPSIZE);
-    memset(heap, 0, HEAPSIZE);
-
-    while(read(fd, &op, 1)) {
-	eval(op);
+    /* ensure a valid program filename */
+    if(argc!=2 || stat(argv[1], &sb))
+    {
+	printf("Usage\n\t%s <program.bf>\n", *argv);
+	return -1;
     }
+
+    /* read the program into memory */
+    proglen = sb.st_size;
+    program = (char *)malloc(proglen);
+    fd = open(argv[1], O_RDONLY);
+    read(fd,program,proglen);
+    close(fd);
+
+    reduce(program, proglen);
+    
+    printf("program: %s\n", program);
 
     return 0;
 }
