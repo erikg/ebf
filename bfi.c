@@ -15,6 +15,16 @@ char heap[HEAPSIZE], *ptr, *program;
 int i = 0, proglen;
 
 void eval(char op) {
+    switch(op){
+    case '+': break;
+    case '-': break;
+    case '>': break;
+    case '<': break;
+    case ',': break;
+    case '.': break;
+    case '[': break;
+    case ']': break;
+    }
     return;
 }
 
