@@ -20,7 +20,7 @@ compile(char *src, char *dst) {
     while((op = fgetc(in)) != EOF)
 	switch(op) {
 	    case '>': fprintf(out, "++ptr;\n"); break;
-	    case '<': fprintf(out, "++ptr;\n"); break;
+	    case '<': fprintf(out, "--ptr;\n"); break;
 	    case '+': fprintf(out, "++*ptr;\n"); break;
 	    case '-': fprintf(out, "--*ptr;\n"); break;
 	    case '.': fprintf(out, "putchar(*ptr);\n"); break;
@@ -46,7 +46,7 @@ int main(int argc, char **argv) {
 		buf = strdup(optarg);
 		break;
 	    case 'v':
-		printf("%s (bf2c) version $Version$ ($Header: /mnt/fenris/usr/cvs/devel/brainfuck/Attic/bf2c.c,v 1.3 2005/08/31 00:46:59 erik Exp $)\n", *argv);
+		printf("%s (bf2c) version $Version$ ($Header: /mnt/fenris/usr/cvs/devel/brainfuck/Attic/bf2c.c,v 1.4 2005/08/31 01:20:05 erik Exp $)\n", *argv);
 		return 0;
 	    case 'h':
 		printf("Usage:\n\t%s [-o <output.c>] [-v|-h] <prog.bf>\n", *argv);
