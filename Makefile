@@ -1,3 +1,7 @@
+GEN_SRCS=hi.c random.c mandelbrot.c cat.c HELLOBF.c
+OBJ=bfi.o bf2c.o
+BINS=hi random mandelbrot cat HELLOBF bfi bf2c
+
 all: HELLOBF hi random mandelbrot cat
 
 HELLOBF: HELLOBF.c
@@ -32,6 +36,6 @@ bfi: bfi.o
 	$(CC) -o bfi bfi.o
 
 clean:
-	rm -f bfi bfi.o bf2c bf2c.o
+	rm -f $(OBJS) $(BINS) $(GEN_SRCS)
 
 
