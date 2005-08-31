@@ -33,13 +33,13 @@ void reduce(char *prog, int pl) {
     int first=1;
 
     while(pl--) {
-	if
     }
 }
 
 int
 main(int argc, char **argv) {
     struct stat sb;
+    int fd;
 
     /* ensure a valid program filename */
     if(argc!=2 || stat(argv[1], &sb))
