@@ -2,7 +2,7 @@ GEN_SRCS=hi.c random.c mandelbrot.c cat.c HELLOBF.c
 OBJ=bfi.o bf2c.o
 BINS=hi random mandelbrot cat HELLOBF bfi bf2c
 
-all: HELLOBF hi random mandelbrot cat
+all: HELLOBF hi random mandelbrot cat bfi
 
 HELLOBF: HELLOBF.c
 	$(CC) -o HELLOBF HELLOBF.c
