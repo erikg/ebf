@@ -36,6 +36,6 @@ bfi: bfi.o
 	$(CC) -o bfi bfi.o
 
 clean:
-	rm -f $(OBJS) $(BINS) $(GEN_SRCS)
+	rm -f $(OBJ) $(BINS) $(GEN_SRCS)
 
 
