@@ -32,8 +32,8 @@ cat.c: cat.bf bf2c
 bf2c: bf2c.o
 	$(CC) -o bf2c bf2c.o
 
-bfi: bfi.o
-	$(CC) -o bfi bfi.o
+bfi: bfi.o lex.o parser.o eval.o
+	$(CC) -o bfi bfi.o lex.o parser.o eval.o
 
 clean:
 	rm -f $(OBJ) $(BINS) $(GEN_SRCS)
