@@ -1,5 +1,5 @@
 /*
- * $Id: bfi.c,v 1.2 2005/09/03 17:20:19 erik Exp $
+ * $Id: bfi.c,v 1.3 2005/09/03 17:23:20 erik Exp $
  */
 
 #include <stdio.h>
@@ -24,9 +24,6 @@ main(int argc, char **argv) {
 	return -1;
     }
 
-    printf("\n");
-
     eval(prog);
-    printf("\n");
     return 0;
 }
