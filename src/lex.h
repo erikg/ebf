@@ -1,6 +1,9 @@
 #ifndef LEX_H
 #define LEX_H
 
+/*
+ * $Id: lex.h,v 1.2 2005/09/03 17:20:19 erik Exp $
+ */
 
 /* the brainfuck lexicon */
 #define INC		'+'

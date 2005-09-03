@@ -1,3 +1,7 @@
+/*
+ * $Id: bf2c.c,v 1.2 2005/09/03 17:20:19 erik Exp $
+ */
+
 #include <stdio.h>
 #include <unistd.h>
 
@@ -46,7 +50,7 @@ int main(int argc, char **argv) {
 		buf = strdup(optarg);
 		break;
 	    case 'v':
-		printf("%s (bf2c) version $Version$ ($Header: /mnt/fenris/usr/cvs/devel/brainfuck/src/bf2c.c,v 1.1 2005/09/03 16:52:05 erik Exp $)\n", *argv);
+		printf("%s (bf2c) version $Version$ ($Header: /mnt/fenris/usr/cvs/devel/brainfuck/src/bf2c.c,v 1.2 2005/09/03 17:20:19 erik Exp $)\n", *argv);
 		return 0;
 	    case 'h':
 		printf("Usage:\n\t%s [-o <output.c>] [-v|-h] <prog.bf>\n", *argv);

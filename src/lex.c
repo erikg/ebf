@@ -1,3 +1,7 @@
+/*
+ * $Id: lex.c,v 1.2 2005/09/03 17:20:19 erik Exp $
+ */
+
 #include <sys/types.h>
 #include <sys/uio.h>
 #include <unistd.h>
