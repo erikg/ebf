@@ -1,5 +1,6 @@
+
 /*
- * $Id: parser.c,v 1.2 2005/09/03 17:20:19 erik Exp $
+ * $Id: parser.c,v 1.3 2005/09/04 20:12:06 erik Exp $
  */
 
 #include <stdio.h>
@@ -8,18 +9,16 @@
 #include "lex.h"
 
 struct op_s *
-fromp (int fd)
+parsei (int fd)
 {
     int op;
-    struct op_s *prog = NULL, *ptr = NULL;
+    struct op_s *prog = NULL, *ptr = NULL, *cell;
 
     while (op = lex_next (fd))
     {
-	struct op_s *cell;
-
-	if(op==0 || op==LOOP_END)
+	if (op == LOOP_END)
 	    return prog;
-	
+
 	cell = (struct op_s *)malloc (sizeof (struct op_s));
 
 	if (prog == NULL)
@@ -30,7 +29,7 @@ fromp (int fd)
 
 	cell->opcode = op;
 	cell->next = NULL;
-	cell->loop = (op == LOOP_START) ? fromp (fd) : NULL;
+	cell->loop = (op == LOOP_START) ? parsei (fd) : NULL;
     }
     return prog;
 }
@@ -38,10 +37,7 @@ fromp (int fd)
 struct op_s *
 parse (char *filename)
 {
-    int fd = lex_open (filename);
+    int fd;
 
-    if (fd < 0)
-	return NULL;
-
-    return fromp (fd);
+    return (fd = lex_open (filename)) < 0 ? NULL : parsei (fd);
 }

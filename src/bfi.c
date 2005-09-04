@@ -1,5 +1,5 @@
 /*
- * $Id: bfi.c,v 1.3 2005/09/03 17:23:20 erik Exp $
+ * $Id: bfi.c,v 1.4 2005/09/04 20:12:06 erik Exp $
  */
 
 #include <stdio.h>
@@ -8,11 +8,9 @@
 #include "parser.h"
 
 #define HEAPSIZE 30000
-
 #define PANIC(x, args...) { printf(x,##args); exit(-1); }
 
 char heap[HEAPSIZE], *ptr, *program;
-
 
 int
 main(int argc, char **argv) {
