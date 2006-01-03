@@ -1,6 +1,6 @@
 
 /*
- * $Id: bf2as.c,v 1.1 2005/09/05 17:41:22 erik Exp $
+ * $Id: bf2as.c,v 1.2 2006/01/03 20:09:05 erik Exp $
  */
 
 #include <stdio.h>
@@ -20,7 +20,7 @@ x86(struct op_s *prog, char *oldlabel, char *label) {
 #define OP(o,c) case o: printf(c); break
 	OP(INC, "	inc (%%al)\t; +\n");
 	OP(DEC, "	dec (%%al)\t; -\n");
-	OP(NEXT, "	inc %%al\t; >\n");
+	OP(NEXT, "	inc %%al\t\t; >\n");
 	OP(PREV, "	dec %%al\t; <\n");
 	OP(GET, "	*** GET\t\t; ,\n");
 	OP(PUT, "	*** PUT\t\t; .\n");

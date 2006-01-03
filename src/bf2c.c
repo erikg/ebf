@@ -1,5 +1,5 @@
 /*
- * $Id: bf2c.c,v 1.2 2005/09/03 17:20:19 erik Exp $
+ * $Id: bf2c.c,v 1.3 2006/01/03 20:09:05 erik Exp $
  */
 
 #include <stdio.h>
@@ -27,7 +27,7 @@ compile(char *src, char *dst) {
 	    case '<': fprintf(out, "--ptr;\n"); break;
 	    case '+': fprintf(out, "++*ptr;\n"); break;
 	    case '-': fprintf(out, "--*ptr;\n"); break;
-	    case '.': fprintf(out, "putchar(*ptr);\n"); break;
+	    case '.': fprintf(out, "printf(\"%%c\", *ptr);\n"); break;
 	    case ',': fprintf(out, "*ptr = getchar();\n"); break;
 	    case '[': fprintf(out, "while(*ptr) {\n"); break;
 	    case ']': fprintf(out, "}\n"); break;
@@ -50,7 +50,7 @@ int main(int argc, char **argv) {
 		buf = strdup(optarg);
 		break;
 	    case 'v':
-		printf("%s (bf2c) version $Version$ ($Header: /mnt/fenris/usr/cvs/devel/brainfuck/src/bf2c.c,v 1.2 2005/09/03 17:20:19 erik Exp $)\n", *argv);
+		printf("%s (bf2c) version $Version$ ($Header: /mnt/fenris/usr/cvs/devel/brainfuck/src/bf2c.c,v 1.3 2006/01/03 20:09:05 erik Exp $)\n", *argv);
 		return 0;
 	    case 'h':
 		printf("Usage:\n\t%s [-o <output.c>] [-v|-h] <prog.bf>\n", *argv);
