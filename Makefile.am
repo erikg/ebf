@@ -1,4 +1,6 @@
-# $Id: Makefile.am,v 1.1 2005/09/03 16:52:05 erik Exp $
+# $Id: Makefile.am,v 1.2 2006/01/03 22:38:05 erik Exp $
 
 SUBDIRS=src examples
 
+test: src/bfi
+	(cd examples && make tests)
