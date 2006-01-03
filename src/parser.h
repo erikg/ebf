@@ -2,11 +2,12 @@
 #define PARSER_H
 
 /*
- * $Id: parser.h,v 1.3 2005/09/04 20:12:06 erik Exp $
+ * $Id: parser.h,v 1.4 2006/01/03 22:37:50 erik Exp $
  */
 
 struct op_s {
 	char opcode;
+	int val;
 	struct op_s *loop;
 	struct op_s *next;
 };
@@ -18,5 +19,7 @@ struct op_s {
  */
 struct op_s *parse(char *filename);
 struct op_s *parsei(int fd);
+
+int prog_length(struct op_s *prog);
 
 #endif
