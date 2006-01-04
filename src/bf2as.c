@@ -1,12 +1,11 @@
 
 /*
- * $Id: bf2as.c,v 1.2 2006/01/03 20:09:05 erik Exp $
+ * $Id: bf2as.c,v 1.3 2006/01/04 17:44:00 erik Exp $
  */
 
 #include <stdio.h>
 
 #include "lex.h"
-#include "eval.h"
 #include "parser.h"
 
 int labelcount = 0;

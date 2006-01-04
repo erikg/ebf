@@ -21,9 +21,11 @@ compact (struct op_s *prog)
 		prog->next = tmp->next;
 		free (tmp);
 		return compact (prog), prog;
-	    } else
+	    } else 
 		return compact (prog->next), prog;
 	    break;
+	    case LOOP_START:
+		    prog->loop = compact(prog->loop);
 	default:
 	    return compact (prog->next), prog;
 	}
