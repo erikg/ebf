@@ -1,5 +1,5 @@
 /*
- * $Id: eval.c,v 1.3 2006/01/03 22:37:50 erik Exp $
+ * $Id: eval.c,v 1.4 2006/01/04 15:25:52 erik Exp $
  */
 
 #include <stdio.h>
@@ -8,12 +8,11 @@
 #include "lex.h"
 #include "parser.h"
 
+static char heap[30000], *ptr=heap;
+
 int
 eval(struct op_s *prog) {
-    char heap[30000], *ptr=heap;
-
     while( prog ) {
-//	printf("\t%c %d\n", prog->opcode, prog->val);
 	switch(prog->opcode) {
 #define EVAL(op,ex) case op: ex; break;
 	    EVAL(INC,		*ptr = *ptr + prog->val	)   /* ++*ptr */
