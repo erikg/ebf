@@ -1,5 +1,5 @@
 /*
- * $Id: bfi.c,v 1.5 2006/01/03 22:37:50 erik Exp $
+ * $Id: bfi.c,v 1.6 2006/01/04 17:38:22 erik Exp $
  */
 
 #include <stdio.h>
@@ -7,10 +7,6 @@
 #include "eval.h"
 #include "parser.h"
 #include "optimizer.h"
-
-#define USE_TIMER 1
-
-#include "timer.h"
 
 #define HEAPSIZE 30000
 #define PANIC(x, args...) { printf(x,##args); exit(-1); }
