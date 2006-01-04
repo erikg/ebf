@@ -1,6 +1,6 @@
 
 /*
- * $Id: parser.c,v 1.4 2006/01/03 22:37:50 erik Exp $
+ * $Id: parser.c,v 1.5 2006/01/04 15:17:44 erik Exp $
  */
 
 #include <stdio.h>
@@ -43,10 +43,24 @@ parse (char *filename)
     return (fd = lex_open (filename)) < 0 ? NULL : parsei (fd);
 }
 
-int prog_length(struct op_s *prog)
+int
+prog_length (struct op_s *prog)
 {
-    if(prog==NULL)
-	return 0;
-    return(1+prog_length(prog->next));
+    return prog == NULL ? 0 : 1 + prog_length (prog->next);
 }
 
+void
+prog_print (struct op_s *prog)
+{
+    while (prog)
+    {
+	putchar (prog->opcode);
+	if (prog->opcode == LOOP_START)
+	{
+	    prog_print (prog->loop);
+	    putchar (']');
+	}
+	prog = prog->next;
+    }
+    return;
+}
