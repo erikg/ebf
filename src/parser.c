@@ -1,6 +1,6 @@
 
 /*
- * $Id: parser.c,v 1.5 2006/01/04 15:17:44 erik Exp $
+ * $Id: parser.c,v 1.6 2006/01/05 01:55:58 erik Exp $
  */
 
 #include <stdio.h>
@@ -54,11 +54,14 @@ prog_print (struct op_s *prog)
 {
     while (prog)
     {
-	putchar (prog->opcode);
+	int i = prog->val;
+
+	while(i--)
+	    putchar (prog->opcode);
 	if (prog->opcode == LOOP_START)
 	{
 	    prog_print (prog->loop);
-	    putchar (']');
+	    printf ("]");
 	}
 	prog = prog->next;
     }
