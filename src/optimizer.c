@@ -23,13 +23,14 @@ compact (struct op_s *prog)
 		return compact (prog), prog;
 	    } else 
 		return compact (prog->next), prog;
+	    printf("I should never be seen\n");
 	    break;
 	    case LOOP_START:
 		    prog->loop = compact(prog->loop);
 	default:
 	    return compact (prog->next), prog;
 	}
-    return NULL;
+    return prog;
 }
 
 struct op_s *
