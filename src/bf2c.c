@@ -1,6 +1,6 @@
 
 /*
- * $Id: bf2c.c,v 1.4 2006/01/04 17:37:46 erik Exp $
+ * $Id: bf2c.c,v 1.5 2006/01/05 01:56:19 erik Exp $
  */
 
 #include <stdio.h>
@@ -20,10 +20,10 @@ compile_sub (struct op_s *prog, FILE * out)
 	{
 #define CPRINT(u,m) { if (prog->val == 1) fprintf (out, u); else fprintf (out, m, prog->val); }
 	case INC:
-	    CPRINT("++*ptr;","*ptr=*ptr+%d;")
+	    CPRINT("++*ptr;","*ptr= *ptr+%d;")
 	    break;
 	case DEC:
-	    CPRINT("--*ptr;","*ptr=*ptr-%d;")
+	    CPRINT("--*ptr;","*ptr= *ptr-%d;")
 	    break;
 	case NEXT:
 	    CPRINT("++ptr;","ptr=ptr+%d;")
@@ -105,7 +105,7 @@ main (int argc, char **argv)
 	    break;
 	case 'v':
 	    printf
-		("%s (bf2c) version $Version$ ($Header: /mnt/fenris/usr/cvs/devel/brainfuck/src/bf2c.c,v 1.4 2006/01/04 17:37:46 erik Exp $)\n",
+		("%s (bf2c) version $Version$ ($Header: /mnt/fenris/usr/cvs/devel/brainfuck/src/bf2c.c,v 1.5 2006/01/05 01:56:19 erik Exp $)\n",
 		*argv);
 	    return 0;
 	case 'h':
