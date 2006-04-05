@@ -32,6 +32,11 @@ compact (struct op_s *prog)
     return prog;
 }
 
+static struct op_s *
+deduce_zeros(struct op_s *prog){
+	return NULL;
+}
+
 struct op_s *
 optimize (struct op_s *prog)
 {
