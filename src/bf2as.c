@@ -1,12 +1,13 @@
 
 /*
- * $Id: bf2as.c,v 1.5 2006/09/16 00:16:40 erik Exp $
+ * $Id: bf2as.c,v 1.6 2006/09/18 13:36:30 erik Exp $
  */
 
 #include <stdio.h>
 
 #include "lex.h"
 #include "parser.h"
+#include "optimizer.h"
 
 static const char *head = "\
 	.text\n\
@@ -35,14 +36,23 @@ x86(struct op_s *prog) {
 
 	while(prog) {
 		switch(prog->opcode){
-#define OP(o,c) case o: printf(c); break
-		OP(INC,  "	incl (%%eax)	# +\n");
-		OP(DEC,  "	decl (%%eax)	# -\n");
-		OP(NEXT, "	incl  %%eax	# >\n");
-		OP(PREV, "	decl  %%eax	# <\n");
+#define OP(o, args) case o: printf( args ); break
 		OP(GET,  "	*** GET\t\t# ,\n");
-#undef OP
+#define OPT(op,a,b) case op: if(prog->val==1) a; else b; break
+		OPT(DEC,
+		    printf("	decl  (%%eax)\t\t# -\n"),
+		    printf("	subl  $%d, (%%eax)\t\t# - %d\n",prog->val,prog->val););
+		OPT(PREV,
+		    printf("	decl  %%eax\t\t# <\n"),
+		    printf("	subl  $%d, %%eax\t\t# < %d\n",prog->val,prog->val););
+		OPT(NEXT,
+		    printf("	incl  %%eax\t\t# >\n"),
+		    printf("	addl  $%d, %%eax\t# > %d\n", prog->val, prog->val));
+		OPT(INC,
+		    printf("	incl  (%%eax)\t\t# +\n"),
+		    printf("	addl  $%d,(%%eax)\t\t# + %d\n", prog->val, prog->val));
 		case PUT:
+			printf("			\t# .\n");
 			printf("	pushl %%eax\n");
 			printf("	pushl $1\n");
 			printf("	pushl %%eax\n");
@@ -50,18 +60,18 @@ x86(struct op_s *prog) {
 			printf("	movl  $4, %%eax\n");
 			printf("	call  kernel\n");
 			printf("	addl  $12, %%esp\n");
-			printf("	popl  %%eax\n");
+			printf("	popl  %%eax\n\n");
 			break;
 		case LOOP_START:
 			labelval = labelcount;
 			++labelcount;
 			sprintf(label, "B%04d", labelval);
 			sprintf(endlabel, "E%04d", labelval);
-			printf("%s:\t\t\t# [\n", label);
-			printf("	cmpb $0, (%%eax)\n");
-			printf("	jz %s\n", endlabel);
+			printf("%s:\t\t\t\t# [\n", label);
+			printf("	cmpb  $0, (%%eax)\n");
+			printf("	jz    %s\n", endlabel);
 			x86(prog->loop);
-			printf("	jmp %s	# ]\n", label);
+			printf("	jmp   %s	\t# ]\n", label);
 			printf("%s:			\n", endlabel);
 			break;
 		default:
@@ -87,7 +97,7 @@ main(int argc, char **argv) {
 	prog_print(prog);
 	printf("#\n#\n#\n\n");
 	printf(head);
-	x86(prog);
+	x86(optimize(prog));
 	printf(tail);
 	return 0;
 }
