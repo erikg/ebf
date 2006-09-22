@@ -1,9 +1,10 @@
 
 /*
- * $Id: bf2as.c,v 1.6 2006/09/18 13:36:30 erik Exp $
+ * $Id: bf2as.c,v 1.7 2006/09/22 14:05:56 erik Exp $
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "lex.h"
 #include "parser.h"
