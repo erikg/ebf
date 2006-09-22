@@ -1,5 +1,5 @@
 /*
- * $Id: bfi.c,v 1.7 2006/01/04 17:44:00 erik Exp $
+ * $Id: bfi.c,v 1.8 2006/09/22 14:03:08 erik Exp $
  */
 
 #include <stdio.h>
@@ -9,9 +9,8 @@
 #include "parser.h"
 
 #define HEAPSIZE 30000
-#define PANIC(x, args...) { printf(x,##args); exit(-1); }
 
-static char heap[30000], *ptr=heap;
+static char heap[HEAPSIZE], *ptr=heap;
 
 int
 eval(struct op_s *prog) {
@@ -26,7 +25,7 @@ eval(struct op_s *prog) {
 	    EVAL(GET,		*ptr = getchar()	)
 	    EVAL(LOOP_START,	while(*ptr)eval(prog->loop))
 #undef EVAL
-	    default: printf("Unknown symbol in compiled program: %c (0x%X)\n", prog->opcode); return -1;
+	    default: printf("Unknown symbol in compiled program: %c (0x%X)\n", prog->opcode, prog->opcode); return -1;
 	}
 	prog = prog->next;
     }
