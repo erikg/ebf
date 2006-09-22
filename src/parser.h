@@ -2,12 +2,12 @@
 #define PARSER_H
 
 /*
- * $Id: parser.h,v 1.5 2006/09/15 23:39:05 erik Exp $
+ * $Id: parser.h,v 1.6 2006/09/22 14:02:18 erik Exp $
  */
 
 struct op_s {
 	char opcode;
-	int val;	    /* extra info for optimizations... repitiion count */
+	int val;	    /* extra info for optimizations... repetition count */
 	struct op_s *loop;
 	struct op_s *next;
 };
