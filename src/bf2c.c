@@ -1,11 +1,12 @@
 
 /*
- * $Id: bf2c.c,v 1.5 2006/01/05 01:56:19 erik Exp $
+ * $Id: bf2c.c,v 1.6 2006/09/22 14:06:33 erik Exp $
  */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 
 #include "lex.h"
 #include "parser.h"
@@ -19,25 +20,13 @@ compile_sub (struct op_s *prog, FILE * out)
 	switch (prog->opcode)
 	{
 #define CPRINT(u,m) { if (prog->val == 1) fprintf (out, u); else fprintf (out, m, prog->val); }
-	case INC:
-	    CPRINT("++*ptr;","*ptr= *ptr+%d;")
-	    break;
-	case DEC:
-	    CPRINT("--*ptr;","*ptr= *ptr-%d;")
-	    break;
-	case NEXT:
-	    CPRINT("++ptr;","ptr=ptr+%d;")
-	    break;
-	case PREV:
-	    CPRINT("--ptr;","ptr=ptr-%d;")
+	case INC: CPRINT("++*ptr;","*ptr= *ptr+%d;") break;
+	case DEC: CPRINT("--*ptr;","*ptr= *ptr-%d;") break;
+	case NEXT: CPRINT("++ptr;","ptr=ptr+%d;") break;
+	case PREV: CPRINT("--ptr;","ptr=ptr-%d;") break;
 #undef CPRINT
-	    break;
-	case PUT:
-	    fprintf (out, "putchar(*ptr);");
-	    break;
-	case GET:
-	    fprintf (out, "*ptr = getchar();");
-	    break;
+	case PUT: fprintf (out, "putchar(*ptr);"); break;
+	case GET: fprintf (out, "*ptr = getchar();"); break;
 	case LOOP_START:
 	    fprintf (out, "while(*ptr){");
 	    compile_sub (prog->loop, out);
@@ -45,7 +34,7 @@ compile_sub (struct op_s *prog, FILE * out)
 	    break;
 	default:
 	    fprintf (stderr, "Unknown symbol in compiled program: %c (0x%X)\n",
-		prog->opcode);
+		prog->opcode, prog->opcode);
 	    return -1;
 	}
 	prog = prog->next;
@@ -105,7 +94,7 @@ main (int argc, char **argv)
 	    break;
 	case 'v':
 	    printf
-		("%s (bf2c) version $Version$ ($Header: /mnt/fenris/usr/cvs/devel/brainfuck/src/bf2c.c,v 1.5 2006/01/05 01:56:19 erik Exp $)\n",
+		("%s (bf2c) version $Version$ ($Header: /mnt/fenris/usr/cvs/devel/brainfuck/src/bf2c.c,v 1.6 2006/09/22 14:06:33 erik Exp $)\n",
 		*argv);
 	    return 0;
 	case 'h':
