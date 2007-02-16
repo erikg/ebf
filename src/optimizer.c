@@ -1,3 +1,7 @@
+/*
+ * $Id: optimizer.c,v 1.10 2007/02/16 17:37:42 erik Exp $
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 
