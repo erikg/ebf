@@ -1,6 +1,6 @@
 
 /*
- * $Id: bf2c.c,v 1.6 2006/09/22 14:06:33 erik Exp $
+ * $Id: bf2c.c,v 1.7 2007/02/16 14:45:11 erik Exp $
  */
 
 #include <stdio.h>
@@ -64,7 +64,7 @@ compile (char *src, char *dst)
      * dump the front matter 
      */
     fprintf (out,
-	"#include <stdio.h>\n\n#define HEAPSIZE 30000\n\nint main(int argc, char **argv) {\n\tchar buf[HEAPSIZE], *ptr = buf;\n\tmemset(buf, 0, HEAPSIZE);\n\n");
+	"#include <stdio.h>\n#include <string.h>\n\n#define HEAPSIZE 30000\n\nint main(int argc, char **argv) {\n\tchar buf[HEAPSIZE], *ptr = buf;\n\tmemset(buf, 0, HEAPSIZE);\n\n");
 
     /*
      * then the body, we'll let the c compiler worry about optimizing 
@@ -94,7 +94,7 @@ main (int argc, char **argv)
 	    break;
 	case 'v':
 	    printf
-		("%s (bf2c) version $Version$ ($Header: /mnt/fenris/usr/cvs/devel/brainfuck/src/bf2c.c,v 1.6 2006/09/22 14:06:33 erik Exp $)\n",
+		("%s (bf2c) version $Version$ ($Header: /mnt/fenris/usr/cvs/devel/brainfuck/src/bf2c.c,v 1.7 2007/02/16 14:45:11 erik Exp $)\n",
 		*argv);
 	    return 0;
 	case 'h':
