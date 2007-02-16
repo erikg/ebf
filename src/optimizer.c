@@ -29,7 +29,7 @@ compact (struct op_s *prog)
 static struct op_s *
 deduce_zeros(struct op_s *prog){
     struct op_s *t = prog;
-    if(prog->opcode == DEC & prog->next==NULL)
+    if(prog->opcode == DEC && prog->next==NULL)
 	prog->opcode = ZERO;
     while(prog) {
 	if(prog->opcode == LOOP_START)
