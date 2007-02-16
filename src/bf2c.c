@@ -1,6 +1,6 @@
 
 /*
- * $Id: bf2c.c,v 1.7 2007/02/16 14:45:11 erik Exp $
+ * $Id: bf2c.c,v 1.8 2007/02/16 17:20:27 erik Exp $
  */
 
 #include <stdio.h>
@@ -48,7 +48,7 @@ compile (char *src, char *dst)
     FILE *out;
     struct op_s *prog;
 
-    if ((prog = parse (src)) == NULL)
+    if ((prog = optimize(parse (src))) == NULL)
     {
 	printf ("bah, couldn't read %s\n", src);
 	return EXIT_FAILURE;
@@ -57,8 +57,6 @@ compile (char *src, char *dst)
 
     if (out == NULL)
 	return printf ("Ack, couldn't open %s for output\n", dst), 1;
-
-    prog = optimize (prog);
 
     /*
      * dump the front matter 
@@ -94,7 +92,7 @@ main (int argc, char **argv)
 	    break;
 	case 'v':
 	    printf
-		("%s (bf2c) version $Version$ ($Header: /mnt/fenris/usr/cvs/devel/brainfuck/src/bf2c.c,v 1.7 2007/02/16 14:45:11 erik Exp $)\n",
+		("%s (bf2c) version $Version$ ($Header: /mnt/fenris/usr/cvs/devel/brainfuck/src/bf2c.c,v 1.8 2007/02/16 17:20:27 erik Exp $)\n",
 		*argv);
 	    return 0;
 	case 'h':
