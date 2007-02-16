@@ -1,6 +1,6 @@
 
 /*
- * $Id: bf2as.c,v 1.7 2006/09/22 14:05:56 erik Exp $
+ * $Id: bf2as.c,v 1.8 2007/02/16 17:35:33 erik Exp $
  */
 
 #include <stdio.h>
@@ -52,6 +52,9 @@ x86(struct op_s *prog) {
 		OPT(INC,
 		    printf("	incl  (%%eax)\t\t# +\n"),
 		    printf("	addl  $%d,(%%eax)\t\t# + %d\n", prog->val, prog->val));
+		case ZERO:
+			printf("	xor (%%eax),(%%eax)\n");
+			break;
 		case PUT:
 			printf("			\t# .\n");
 			printf("	pushl %%eax\n");

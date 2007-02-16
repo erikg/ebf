@@ -1,5 +1,5 @@
 /*
- * $Id: bfi.c,v 1.8 2006/09/22 14:03:08 erik Exp $
+ * $Id: bfi.c,v 1.9 2007/02/16 17:35:33 erik Exp $
  */
 
 #include <stdio.h>
@@ -17,6 +17,7 @@ eval(struct op_s *prog) {
     while( prog ) {
 	switch(prog->opcode) {
 #define EVAL(op,ex) case op: ex; break;
+	    EVAL(ZERO,		*ptr = 0		)
 	    EVAL(INC,		*ptr = *ptr + prog->val	)   /* ++*ptr */
 	    EVAL(DEC,		*ptr = *ptr - prog->val	)   /* --*ptr */
 	    EVAL(NEXT,		ptr += prog->val	)   /* ++ptr */

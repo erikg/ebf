@@ -26,12 +26,18 @@ compact (struct op_s *prog)
     return ret;
 }
 
-/*
 static struct op_s *
 deduce_zeros(struct op_s *prog){
-	return NULL;
+    struct op_s *t = prog;
+    if(prog->opcode == DEC & prog->next==NULL)
+	prog->opcode = ZERO;
+    while(prog) {
+	if(prog->opcode == LOOP_START)
+	    prog->loop = deduce_zeros(prog->loop);
+	prog = prog->next;
+    }
+    return t;
 }
-*/
 
 struct op_s *
 optimize (struct op_s *prog)

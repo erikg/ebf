@@ -1,6 +1,6 @@
 
 /*
- * $Id: bf2c.c,v 1.8 2007/02/16 17:20:27 erik Exp $
+ * $Id: bf2c.c,v 1.9 2007/02/16 17:35:33 erik Exp $
  */
 
 #include <stdio.h>
@@ -25,6 +25,7 @@ compile_sub (struct op_s *prog, FILE * out)
 	case NEXT: CPRINT("++ptr;","ptr=ptr+%d;") break;
 	case PREV: CPRINT("--ptr;","ptr=ptr-%d;") break;
 #undef CPRINT
+	case ZERO: fprintf(out, "*ptr = 0;"); break;
 	case PUT: fprintf (out, "putchar(*ptr);"); break;
 	case GET: fprintf (out, "*ptr = getchar();"); break;
 	case LOOP_START:
@@ -92,7 +93,7 @@ main (int argc, char **argv)
 	    break;
 	case 'v':
 	    printf
-		("%s (bf2c) version $Version$ ($Header: /mnt/fenris/usr/cvs/devel/brainfuck/src/bf2c.c,v 1.8 2007/02/16 17:20:27 erik Exp $)\n",
+		("%s (bf2c) version $Version$ ($Header: /mnt/fenris/usr/cvs/devel/brainfuck/src/bf2c.c,v 1.9 2007/02/16 17:35:33 erik Exp $)\n",
 		*argv);
 	    return 0;
 	case 'h':
