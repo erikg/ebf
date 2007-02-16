@@ -1,4 +1,4 @@
-# $Id: Makefile.am,v 1.4 2006/09/22 14:08:23 erik Exp $
+# $Id: Makefile.am,v 1.5 2007/02/16 15:35:24 erik Exp $
 
 extra_DIST=HELLOBF.BF cat.bf hi.bf hilong.bf lame.bf mandelbrot.b random.b wonk.bf
 
@@ -25,7 +25,7 @@ test-mandelbrot-bfi:
 	@if [ ! "`md5 mandelbrot.out`" = "MD5 (mandelbrot.out) = 5024283fa65866ddd347b877798e84d8" ] ; then echo 'bfi failure!' ; false ; else echo "OK" ; fi
 	@rm mandelbrot.out
 
-test-mandelbrot: test-mandelbrot test-mandelbrot-as test-mandelbrot-c
+test-mandelbrot: test-mandelbrot-bfi test-mandelbrot-as test-mandelbrot-c
 
 test-hi1:
 	@echo -n "Testing $@	"
