@@ -7,30 +7,23 @@
 static struct op_s *
 compact (struct op_s *prog)
 {
-    if (prog && prog->next)
-	switch (prog->opcode)
-	{
-	    case INC:
-	    case DEC:
-	    case NEXT:
-	    case PREV:
-		if (prog->opcode == prog->next->opcode)
-		{
-		    struct op_s *tmp = prog->next;
+    struct op_s *ret = prog;
 
-		    prog->val += tmp->val;
-		    prog->next = tmp->next;
-		    free (tmp);
-		    return compact (prog), prog;
-		} else 
-		    return compact (prog->next), prog;
-		printf("I should never be seen\n");
-	    case LOOP_START:
-		    prog->loop = compact(prog->loop);
-	default:
-	    return compact (prog->next), prog;
-	}
-    return prog;
+    while (prog)
+    {
+	if (prog->opcode == LOOP_START)
+	    prog->loop = compact (prog->loop);
+	else if((prog->opcode == INC || prog->opcode == DEC || prog->opcode == NEXT || prog->opcode == PREV))
+	    while(prog->next && prog->opcode == prog->next->opcode) {
+		struct op_s *t = prog->next;
+
+		prog->next = t->next;
+		prog->val += t->val;
+		free(t);
+	    }
+	prog = prog->next;
+    }
+    return ret;
 }
 
 /*
