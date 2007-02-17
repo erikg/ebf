@@ -1,6 +1,6 @@
 
 /*
- * $Id: bf2as.c,v 1.9 2007/02/17 12:53:15 erik Exp $
+ * $Id: bf2as.c,v 1.10 2007/02/17 13:43:42 erik Exp $
  */
 
 #include <stdio.h>
@@ -55,14 +55,22 @@ x86(struct op_s *prog) {
 			break;
 		case PUT:
 			printf("			\t# .\n");
+#ifdef __linux__
 			printf("	pushl %%eax\n");
+			printf("	movl  %%eax, %%ecx\n");
+			printf("	movl  $1, %%ebx\n");
+			printf("	movl  $1, %%edx\n");
+#else
 			printf("	pushl $1\n");
 			printf("	pushl %%eax\n");
 			printf("	pushl $1\n");
-			printf("	movl  $4, %%eax\n");
 			printf("	pushl %%eax\t#noise\n");
-			printf("	int $0x80\n");
+#endif
+			printf("	movl  $4, %%eax\n");
+			printf("	int $0x80\n\n");
+#ifndef __linux__
 			printf("	addl  $16, %%esp\n");
+#endif
 			printf("	popl  %%eax\n\n");
 			break;
 		case LOOP_START:
