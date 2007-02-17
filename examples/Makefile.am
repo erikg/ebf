@@ -1,4 +1,4 @@
-# $Id: Makefile.am,v 1.5 2007/02/16 15:35:24 erik Exp $
+# $Id: Makefile.am,v 1.6 2007/02/17 12:25:38 erik Exp $
 
 extra_DIST=HELLOBF.BF cat.bf hi.bf hilong.bf lame.bf mandelbrot.b random.b wonk.bf
 
@@ -7,7 +7,7 @@ test-mandelbrot-c:
 	@../src/bf2c mandelbrot.b
 	@gcc -O3 -o mandelbrot mandelbrot.c
 	@time ./mandelbrot > mandelbrot.out
-	@if [ ! "`md5 mandelbrot.out`" = "MD5 (mandelbrot.out) = 5024283fa65866ddd347b877798e84d8" ] ; then echo 'bfi failure!' ; false ; else echo "OK" ; fi
+	@if [ ! "`md5 mandelbrot.out`" = "MD5 (mandelbrot.out) = 5024283fa65866ddd347b877798e84d8" ] ; then echo 'bf2c failure!' ; false ; else echo "OK" ; fi
 	@rm mandelbrot mandelbrot.out mandelbrot.c
 
 test-mandelbrot-as:
@@ -16,7 +16,7 @@ test-mandelbrot-as:
 	@as -o mandelbrot.o mandelbrot.s
 	@ld -o mandelbrot mandelbrot.o
 	@time ./mandelbrot > mandelbrot.out
-	@if [ ! "`md5 mandelbrot.out`" = "MD5 (mandelbrot.out) = 5024283fa65866ddd347b877798e84d8" ] ; then echo 'bfi failure!' ; false ; else echo "OK" ; fi
+	@if [ ! "`md5 mandelbrot.out`" = "MD5 (mandelbrot.out) = 5024283fa65866ddd347b877798e84d8" ] ; then echo 'bf2as failure!' ; false ; else echo "OK" ; fi
 	@rm mandelbrot mandelbrot.out mandelbrot.s mandelbrot.o
 
 test-mandelbrot-bfi:
