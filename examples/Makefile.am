@@ -1,4 +1,4 @@
-# $Id: Makefile.am,v 1.9 2007/02/17 13:22:28 erik Exp $
+# $Id: Makefile.am,v 1.10 2007/02/17 13:43:26 erik Exp $
 
 extra_DIST=HELLOBF.BF cat.bf hi.bf hilong.bf lame.bf mandelbrot.b random.b wonk.bf
 
@@ -39,4 +39,4 @@ test-hi2:
 tests: test-hi1 test-hi2 test-mandelbrot
 
 clean:
-	rm -f mandelbrot-as mandelbrot-as.o mandelbrot-as.s mandlebrot.c mandelbrot-c mandelbrot.out
+	rm -f mandelbrot-as mandelbrot-as.o mandelbrot-as.s mandelbrot.c mandelbrot-c mandelbrot.out
