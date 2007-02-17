@@ -1,6 +1,6 @@
 
 /*
- * $Id: bf2as.c,v 1.8 2007/02/16 17:35:33 erik Exp $
+ * $Id: bf2as.c,v 1.9 2007/02/17 12:53:15 erik Exp $
  */
 
 #include <stdio.h>
@@ -13,15 +13,13 @@
 static const char *head = "\
 	.text\n\
 	.global _start\n\
-kernel:\n\
-	int $0x80\n\
-	ret\n\
 _start:\n\
 	movl $heap,%%eax\n";
 static const char *tail = "\
 	pushl $0\n\
 	movl  $1, %%eax\n\
-	call  kernel\n\
+	pushl $0\n\
+	int $0x80\n\
 	leave\n\
 	ret\n\n\
 .data\n\
@@ -62,8 +60,9 @@ x86(struct op_s *prog) {
 			printf("	pushl %%eax\n");
 			printf("	pushl $1\n");
 			printf("	movl  $4, %%eax\n");
-			printf("	call  kernel\n");
-			printf("	addl  $12, %%esp\n");
+			printf("	pushl %%eax\t#noise\n");
+			printf("	int $0x80\n");
+			printf("	addl  $16, %%esp\n");
 			printf("	popl  %%eax\n\n");
 			break;
 		case LOOP_START:
