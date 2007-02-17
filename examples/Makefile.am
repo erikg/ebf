@@ -1,31 +1,32 @@
-# $Id: Makefile.am,v 1.6 2007/02/17 12:25:38 erik Exp $
+# $Id: Makefile.am,v 1.7 2007/02/17 13:06:00 erik Exp $
 
 extra_DIST=HELLOBF.BF cat.bf hi.bf hilong.bf lame.bf mandelbrot.b random.b wonk.bf
 
-test-mandelbrot-c:
-	@echo -n "Testing $@	"
-	@../src/bf2c mandelbrot.b
-	@gcc -O3 -o mandelbrot mandelbrot.c
-	@time ./mandelbrot > mandelbrot.out
-	@if [ ! "`md5 mandelbrot.out`" = "MD5 (mandelbrot.out) = 5024283fa65866ddd347b877798e84d8" ] ; then echo 'bf2c failure!' ; false ; else echo "OK" ; fi
-	@rm mandelbrot mandelbrot.out mandelbrot.c
+mandelbrot-c: mandelbrot.b
+	../src/bf2c mandelbrot.b
+	gcc -O3 -o mandelbrot-c mandelbrot.c
 
-test-mandelbrot-as:
+test-mandelbrot-c: mandelbrot-c
 	@echo -n "Testing $@	"
-	@../src/bf2as mandelbrot.b > mandelbrot.s
-	@as -o mandelbrot.o mandelbrot.s
-	@ld -o mandelbrot mandelbrot.o
-	@time ./mandelbrot > mandelbrot.out
+	@time ./mandelbrot-c > mandelbrot.out
+	@if [ ! "`md5 mandelbrot.out`" = "MD5 (mandelbrot.out) = 5024283fa65866ddd347b877798e84d8" ] ; then echo 'bf2c failure!' ; false ; else echo "OK" ; fi
+
+mandelbrot-as: mandelbrot.b
+	../src/bf2as mandelbrot.b > mandelbrot-as.s
+	as -o mandelbrot-as.o mandelbrot-as.s
+	ld -o mandelbrot-as mandelbrot-as.o
+
+test-mandelbrot-as: mandelbrot-as
+	@echo -n "Testing $@	"
+	@time ./mandelbrot-as > mandelbrot.out
 	@if [ ! "`md5 mandelbrot.out`" = "MD5 (mandelbrot.out) = 5024283fa65866ddd347b877798e84d8" ] ; then echo 'bf2as failure!' ; false ; else echo "OK" ; fi
-	@rm mandelbrot mandelbrot.out mandelbrot.s mandelbrot.o
 
 test-mandelbrot-bfi:
 	@echo -n "Testing $@	"
 	@time ../src/bfi mandelbrot.b > mandelbrot.out
 	@if [ ! "`md5 mandelbrot.out`" = "MD5 (mandelbrot.out) = 5024283fa65866ddd347b877798e84d8" ] ; then echo 'bfi failure!' ; false ; else echo "OK" ; fi
-	@rm mandelbrot.out
 
-test-mandelbrot: test-mandelbrot-bfi test-mandelbrot-as test-mandelbrot-c
+test-mandelbrot: mandelbrot-c mandelbrot-as test-mandelbrot-bfi test-mandelbrot-as test-mandelbrot-c
 
 test-hi1:
 	@echo -n "Testing $@	"
@@ -36,3 +37,6 @@ test-hi2:
 	@if [ "`../src/bfi hilong.bf`" != 'Hello World!' ] ; then echo 'Grar, failure!' ; false ; else echo "OK" ; fi
 
 tests: test-hi1 test-hi2 test-mandelbrot
+
+clean:
+	rm -f mandelbrot-as mandelbrot-as.o mandelbrot-as.s mandlebrot.c mandelbrot-c mandelbrot.out
