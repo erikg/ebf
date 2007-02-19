@@ -1,4 +1,4 @@
-# $Id: Makefile.am,v 1.10 2007/02/17 13:43:26 erik Exp $
+# $Id: Makefile.am,v 1.11 2007/02/19 18:00:57 erik Exp $
 
 extra_DIST=HELLOBF.BF cat.bf hi.bf hilong.bf lame.bf mandelbrot.b random.b wonk.bf
 
@@ -10,6 +10,7 @@ test-mandelbrot-c: mandelbrot-c
 	@echo -n "Testing $@	"
 	@/usr/bin/time ./mandelbrot-c > mandelbrot.out
 	@if [ ! "`md5 mandelbrot.out`" = "MD5 (mandelbrot.out) = 5024283fa65866ddd347b877798e84d8" ] ; then echo 'bf2c failure!' ; false ; else echo "OK" ; fi
+	@rm mandelbrot.c mandelbrot-c 
 
 mandelbrot-as: mandelbrot.b
 	../src/bf2as mandelbrot.b > mandelbrot-as.s
@@ -20,6 +21,7 @@ test-mandelbrot-as: mandelbrot-as
 	@echo -n "Testing $@	"
 	@/usr/bin/time ./mandelbrot-as > mandelbrot.out
 	@if [ ! "`md5 mandelbrot.out`" = "MD5 (mandelbrot.out) = 5024283fa65866ddd347b877798e84d8" ] ; then echo 'bf2as failure!' ; false ; else echo "OK" ; fi
+	@rm mandelbrot-as mandelbrot-as.o mandelbrot-as.s 
 
 test-mandelbrot-bfi:
 	@echo -n "Testing $@	"
