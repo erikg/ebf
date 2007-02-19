@@ -1,6 +1,6 @@
 
 /*
- * $Id: bf2as.c,v 1.10 2007/02/17 13:43:42 erik Exp $
+ * $Id: bf2as.c,v 1.11 2007/02/19 17:55:44 erik Exp $
  */
 
 #include <stdio.h>
@@ -55,8 +55,8 @@ x86(struct op_s *prog) {
 			break;
 		case PUT:
 			printf("			\t# .\n");
-#ifdef __linux__
 			printf("	pushl %%eax\n");
+#ifdef __linux__
 			printf("	movl  %%eax, %%ecx\n");
 			printf("	movl  $1, %%ebx\n");
 			printf("	movl  $1, %%edx\n");
