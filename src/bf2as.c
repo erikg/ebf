@@ -1,6 +1,6 @@
 
 /*
- * $Id: bf2as.c,v 1.11 2007/02/19 17:55:44 erik Exp $
+ * $Id: bf2as.c,v 1.12 2007/02/19 18:41:12 erik Exp $
  */
 
 #include <stdio.h>
@@ -57,10 +57,12 @@ x86(struct op_s *prog) {
 			printf("			\t# .\n");
 			printf("	pushl %%eax\n");
 #ifdef __linux__
+			/* DOS calling convention, register fill */
 			printf("	movl  %%eax, %%ecx\n");
 			printf("	movl  $1, %%ebx\n");
 			printf("	movl  $1, %%edx\n");
 #else
+			/* UNIX/C calling convention, stack use */
 			printf("	pushl $1\n");
 			printf("	pushl %%eax\n");
 			printf("	pushl $1\n");
