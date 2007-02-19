@@ -1,4 +1,4 @@
-# $Id: Makefile.am,v 1.11 2007/02/19 18:00:57 erik Exp $
+# $Id: Makefile.am,v 1.12 2007/02/19 23:05:49 erik Exp $
 
 extra_DIST=HELLOBF.BF cat.bf hi.bf hilong.bf lame.bf mandelbrot.b random.b wonk.bf
 
@@ -13,9 +13,9 @@ test-mandelbrot-c: mandelbrot-c
 	@rm mandelbrot.c mandelbrot-c 
 
 mandelbrot-as: mandelbrot.b
-	../src/bf2as mandelbrot.b > mandelbrot-as.s
-	as -o mandelbrot-as.o mandelbrot-as.s
-	ld -o mandelbrot-as mandelbrot-as.o
+	@../src/bf2as mandelbrot.b > mandelbrot-as.s
+	@as -o mandelbrot-as.o mandelbrot-as.s
+	@ld -o mandelbrot-as mandelbrot-as.o
 
 test-mandelbrot-as: mandelbrot-as
 	@echo -n "Testing $@	"
@@ -28,17 +28,34 @@ test-mandelbrot-bfi:
 	@/usr/bin/time ../src/bfi mandelbrot.b > mandelbrot.out
 	@if [ ! "`md5 mandelbrot.out`" = "MD5 (mandelbrot.out) = 5024283fa65866ddd347b877798e84d8" ] ; then echo 'bfi failure!' ; false ; else echo "OK" ; fi
 
-test-mandelbrot: mandelbrot-c mandelbrot-as test-mandelbrot-bfi test-mandelbrot-as test-mandelbrot-c
+test-mandelbrot: mandelbrot-c mandelbrot-as test-mandelbrot-c test-mandelbrot-as test-mandelbrot-bfi 
 
 test-hi1:
 	@echo -n "Testing $@	"
 	@if [ "`../src/bfi hi.bf`" != 'Hello World!' ] ; then echo 'Grar, failure!' ; false ; else echo "OK" ; fi
 
+test-hi-as:
+	@echo -n "Testing ASM:	"
+	@../src/bf2as hi.bf > hi-as.s
+	@as -o hi-as.o hi-as.s
+	@ld -o hi-as hi-as.o
+	@./hi-as
+	@rm hi-as hi-as.o hi-as.s 
+
+test-hi-c:
+	@echo -n "Testing C:	"
+	@../src/bf2c hi.bf
+	@mv hi.c hi-c.c
+	@cc -o hi-c.o hi-c.c
+	@ld -o hi-c hi-c.o
+	@./hi-c
+	@rm hi-c hi-c.o hi-c.c
+
 test-hi2:
 	@echo -n "Testing $@	"
 	@if [ "`../src/bfi hilong.bf`" != 'Hello World!' ] ; then echo 'Grar, failure!' ; false ; else echo "OK" ; fi
 
-tests: test-hi1 test-hi2 test-mandelbrot
+tests: test-hi1 test-hi2 test-hi-c test-hi-as test-mandelbrot
 
 clean:
 	rm -f mandelbrot-as mandelbrot-as.o mandelbrot-as.s mandelbrot.c mandelbrot-c mandelbrot.out
