@@ -1,0 +1,52 @@
+20080511:
+	Generated ChangeLog.
+
+20070219:
+	Fix segfault in programs output by bf2as on linux.
+	Added call convention comments.
+
+20070217:
+	Embed syscalls in bf2as.
+	Add linux call convention support.
+
+20070216:
+	Improved outpout C code quality.
+	Optimize parses output immediately.
+	0 deduction in optimizer.
+
+20060922:
+	Fixed "unknown symbol" error.
+	Minor reformatting.
+	Added missing header include.
+
+20060918:
+	Enable optimizer in bf2as.
+
+20060105:
+	Minor fixes for indent.
+
+20060104:
+	Changed to intermediate mode parser and optimizer.
+
+20060103:
+	Added automatic test cases.
+	Beginnings of optimizer.
+
+20050904:
+	Minor code cleanup.
+
+20050903:
+	Reorganized code.
+	Changed to use automake.
+	Added some history to README.
+	Interpreter now works.
+
+20050831:
+	Added the "bfi" interpreter.
+	Added bf sources for testing.
+	Added opcode handling to interpreter.
+	Basic functionality out of compiler.
+
+20050830:
+	Began bf2c compiler.
+
