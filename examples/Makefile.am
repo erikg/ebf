@@ -1,4 +1,4 @@
-# $Id: Makefile.am,v 1.13 2008/06/12 20:32:49 erik Exp $
+# $Id: Makefile.am,v 1.14 2008/06/12 21:36:48 erik Exp $
 
 extra_DIST=HELLOBF.BF cat.bf hi.bf hilong.bf lame.bf mandelbrot.b random.b wonk.bf
 
@@ -46,10 +46,9 @@ test-hi-c:
 	@echo -n "Testing C:	"
 	@$(top_builddir)/src/bf2c $(srcdir)/hi.bf
 	@mv hi.c hi-c.c
-	@cc -o hi-c.o hi-c.c
-	@ld -o hi-c hi-c.o
+	@cc -o hi-c hi-c.c
 	@./hi-c
-	@rm hi-c hi-c.o hi-c.c
+	@rm hi-c hi-c.c
 
 test-hi2:
 	@echo -n "Testing $@	"

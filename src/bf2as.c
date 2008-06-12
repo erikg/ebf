@@ -1,6 +1,6 @@
 
 /*
- * $Id: bf2as.c,v 1.12 2007/02/19 18:41:12 erik Exp $
+ * $Id: bf2as.c,v 1.13 2008/06/12 21:36:48 erik Exp $
  */
 
 #include <stdio.h>
@@ -15,6 +15,20 @@ static const char *head = "\
 	.global _start\n\
 _start:\n\
 	movl $heap,%%eax\n";
+
+
+#ifdef __linux__    /* EXTRA special. */
+static const char *tail = "\
+	movl  $1, %%eax\n\
+	movl $0, %%ebx\n\
+	int $0x80\n\
+	leave\n\
+	ret\n\n\
+.data\n\
+	.local heap\n\
+	.comm heap,30000,32\n";
+
+#else
 static const char *tail = "\
 	pushl $0\n\
 	movl  $1, %%eax\n\
@@ -25,6 +39,8 @@ static const char *tail = "\
 .data\n\
 	.local heap\n\
 	.comm heap,30000,32\n";
+
+#endif
 
 int labelcount = 0;
 

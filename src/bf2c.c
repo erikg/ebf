@@ -1,6 +1,6 @@
 
 /*
- * $Id: bf2c.c,v 1.11 2008/06/12 20:48:04 erik Exp $
+ * $Id: bf2c.c,v 1.12 2008/06/12 21:36:48 erik Exp $
  */
 
 #include <stdio.h>
@@ -51,7 +51,7 @@ compile (FILE *src, FILE *out)
 
     if ((prog = optimize(parsei(fileno(src)))) == NULL)
     {
-	printf ("bah, couldn't read %s\n", src);
+	printf ("bah, couldn't read source file\n", src);
 	return EXIT_FAILURE;
     }
 
@@ -79,6 +79,7 @@ main (int argc, char **argv)
 {
     int c;
     char *buf = NULL;
+    char src[BUFSIZ];
     FILE *in, *out;
 
     while ((c = getopt (argc, argv, "o:vh")) >= 0)
@@ -90,7 +91,7 @@ main (int argc, char **argv)
 	    break;
 	case 'v':
 	    printf
-		("%s (bf2c) version $Version$ ($Header: /mnt/fenris/usr/cvs/devel/brainfuck/src/bf2c.c,v 1.11 2008/06/12 20:48:04 erik Exp $)\n",
+		("%s (bf2c) version $Version$ ($Header: /mnt/fenris/usr/cvs/devel/brainfuck/src/bf2c.c,v 1.12 2008/06/12 21:36:48 erik Exp $)\n",
 		*argv);
 	    return 0;
 	case 'h':
@@ -112,7 +113,7 @@ main (int argc, char **argv)
     {
 	char *ptr;
 
-	buf = basename (*argv);
+	buf = strdup (basename (*argv));
 	ptr = &buf[strlen (buf)];
 	while (ptr > buf && *(ptr - 1) != '.')
 	    --ptr;
@@ -121,9 +122,18 @@ main (int argc, char **argv)
     }
 
     in = fopen (*argv, "r");
+    if(in == NULL) {
+	printf("Failed to open %s", *argv);
+	perror("");
+	return -1;
+    }
+
     out = fopen (buf, "w");
-    if (out == NULL)
-	return printf ("Ack, couldn't open %s for output\n", buf), 1;
+    if (out == NULL) {
+	printf ("Ack, couldn't open %s for output", buf);
+	perror ("");
+	return -1;
+    }
 
     return compile (in, out);
 }
