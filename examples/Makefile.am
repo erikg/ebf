@@ -1,10 +1,10 @@
-# $Id: Makefile.am,v 1.14 2008/06/12 21:36:48 erik Exp $
+# $Id: Makefile.am,v 1.15 2008/06/12 21:40:55 erik Exp $
 
 extra_DIST=HELLOBF.BF cat.bf hi.bf hilong.bf lame.bf mandelbrot.b random.b wonk.bf
 
 mandelbrot-c: mandelbrot.b
-	$(top_builddir)/src/bf2c $(srcdir)/mandelbrot.b
-	gcc -O1 -o mandelbrot-c mandelbrot.c
+	@$(top_builddir)/src/bf2c $(srcdir)/mandelbrot.b
+	@gcc -O1 -o mandelbrot-c mandelbrot.c
 
 test-mandelbrot-c: mandelbrot-c
 	@echo -n "Testing $@	"
