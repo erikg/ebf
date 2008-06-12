@@ -1,12 +1,13 @@
 
 /*
- * $Id: bf2c.c,v 1.10 2007/02/17 13:22:04 erik Exp $
+ * $Id: bf2c.c,v 1.11 2008/06/12 20:48:04 erik Exp $
  */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include <libgen.h>
 
 #include "lex.h"
 #include "parser.h"
@@ -44,20 +45,15 @@ compile_sub (struct op_s *prog, FILE * out)
 }
 
 int
-compile (char *src, char *dst)
+compile (FILE *src, FILE *out)
 {
-    FILE *out;
     struct op_s *prog;
 
-    if ((prog = optimize(parse (src))) == NULL)
+    if ((prog = optimize(parsei(fileno(src)))) == NULL)
     {
 	printf ("bah, couldn't read %s\n", src);
 	return EXIT_FAILURE;
     }
-    out = fopen (dst, "w");
-
-    if (out == NULL)
-	return printf ("Ack, couldn't open %s for output\n", dst), 1;
 
     /*
      * dump the front matter 
@@ -83,6 +79,7 @@ main (int argc, char **argv)
 {
     int c;
     char *buf = NULL;
+    FILE *in, *out;
 
     while ((c = getopt (argc, argv, "o:vh")) >= 0)
     {
@@ -93,7 +90,7 @@ main (int argc, char **argv)
 	    break;
 	case 'v':
 	    printf
-		("%s (bf2c) version $Version$ ($Header: /mnt/fenris/usr/cvs/devel/brainfuck/src/bf2c.c,v 1.10 2007/02/17 13:22:04 erik Exp $)\n",
+		("%s (bf2c) version $Version$ ($Header: /mnt/fenris/usr/cvs/devel/brainfuck/src/bf2c.c,v 1.11 2008/06/12 20:48:04 erik Exp $)\n",
 		*argv);
 	    return 0;
 	case 'h':
@@ -109,17 +106,24 @@ main (int argc, char **argv)
 
     /*
      * transmogrify the .bf or .b or whatever name to .c 
+     * TODO: basename it
      */
     if (buf == NULL)
     {
 	char *ptr;
 
-	buf = strdup (*argv);
+	buf = basename (*argv);
 	ptr = &buf[strlen (buf)];
 	while (ptr > buf && *(ptr - 1) != '.')
 	    --ptr;
 	*ptr++ = 'c';
 	*ptr = '\0';
     }
-    return compile (*argv, buf);
+
+    in = fopen (*argv, "r");
+    out = fopen (buf, "w");
+    if (out == NULL)
+	return printf ("Ack, couldn't open %s for output\n", buf), 1;
+
+    return compile (in, out);
 }
