@@ -1,13 +1,72 @@
+	-- Eriks BrainFuck compiler/interpreter/etc suite --
 
+Intro
+Compiling and Installing
+Status
+Links
+Contact
 
-History
+
+== Intro ==
 
-9/03/05
-	haven't touched it since 8/31/05
-	got the interpreter workin', w00t
-	changed over to autoconf and added dir structure
+BrainFuck (bf) is a minimal language created by Urban Mller.  It
+is basically a simple turing machine with two extra operations;
+input and output.  This suite implements a bf to ansi C compiler,
+bf to intel x86 (with both linux and bsd call conventions) compiler,
+and an "interpreter".  All tools use the same lexer, parser and
+optimizer code.
 
-8/31/05
-	woohoo, bf2c works, swank
-8/30/05
-	had a discussion on efnet #opengl or #siggraph
+The interpreter is actually a JIT compiler to a bytecode with minimal
+virtual machine (vm) implementation.  Compilation and execution
+happens at the EOF character, so it's not really an interpreter.
+I intend to allow immediate execution in the future, perhaps using
+newline as a trigger to attempt compilation (if a newline occurs
+inside of a loop construct, execution of the partially defined loop
+does not make sense).
+
+The intermediate code is a superset of the language.  The 'compacter'
+and 'zero deducer' optimizers necessitated a broader set (numeric
+constants, add, subtract, set) of opcodes.
+
+My intent is to make this as readable and modular as possible.  The
+original goal was to make a trivial system to experiment with various
+optimization ideas. It's not "clever", fancy, or terribly impressive.
+
+
+== Compiling and Installing
+
+Standard autoconf system with no special configure knobs.
+
+	$ ./configure && make install
+
+
+== Status ==
+
+Interpreter (bfi)	Functional. Not interactive.
+Compiler to C		Functional, complete.
+Compiler to x86 asm	Functional, complete.
+
+TODO
+	make interpreter interactive
+	non-x86 asm output
+	direct machine code output?
+	optimizations!
+	boot sector interpreter for x86 (bf as an os)
+
+
+== Links ==
+
+All hail wikipedia, keeper of truthiness
+	http://en.wikipedia.org/wiki/Brainfuck
+
+Awesome stuff at this site
+	http://www.muppetlabs.com/~breadbox/bf/
+
+collection of shtuff
+	http://esoteric.sange.fi/brainfuck/
+
+
+== Contact ==
+
+erik@smluc.org, ``Erik on efnet or freenode
+
