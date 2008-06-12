@@ -1,9 +1,9 @@
-dnl $Id: configure.ac,v 1.1 2005/09/03 16:52:05 erik Exp $
+dnl $Id: configure.ac,v 1.2 2008/06/12 20:34:31 erik Exp $
 
 AC_INIT
 AC_CONFIG_SRCDIR([src/bfi.c])
 AM_CONFIG_HEADER(config.h)
-AM_INIT_AUTOMAKE(bft, 1.0)
+AM_INIT_AUTOMAKE(ebf, 1.0) # Erik's BrainFuck
 
 AC_PROG_CC
 AC_PROG_INSTALL
