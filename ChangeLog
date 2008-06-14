@@ -1,3 +1,9 @@
+20080614:
+	New binary; bfsc (strip comments).
+
+20080613:
+	Release 0.1
+
 20080612:
 	Fixes for "out of dir" testing.
 	Fixes for, uhm, linuxisms.
