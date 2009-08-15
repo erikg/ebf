@@ -24,7 +24,7 @@
  *****************************************************************************/
 
 /*
- * $Id: bf2as.c,v 1.14 2008/06/13 23:23:18 erik Exp $
+ * $Id: bf2as.c,v 1.15 2009/08/15 00:13:20 erik Exp $
  */
 
 #include <stdio.h>
@@ -36,7 +36,7 @@
 
 static const char *head = "\
 	.text\n\
-	.global _start\n\
+	.globl _start\n\
 _start:\n\
 	movl $heap,%%eax\n";
 
