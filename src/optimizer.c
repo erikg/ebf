@@ -23,7 +23,7 @@
  * SUCH DAMAGE.								      *
  *****************************************************************************/
 /*
- * $Id: optimizer.c,v 1.11 2008/06/13 23:23:18 erik Exp $
+ * $Id: optimizer.c,v 1.12 2009/08/30 20:25:00 erik Exp $
  */
 
 #include <stdio.h>
@@ -70,5 +70,7 @@ deduce_zeros(struct op_s *prog){
 struct op_s *
 optimize (struct op_s *prog)
 {
-    return compact (prog);
+    prog = compact(prog);
+    prog = deduce_zeros(prog);
+    return prog;
 }
