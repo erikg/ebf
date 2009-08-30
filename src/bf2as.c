@@ -24,7 +24,7 @@
  *****************************************************************************/
 
 /*
- * $Id: bf2as.c,v 1.15 2009/08/15 00:13:20 erik Exp $
+ * $Id: bf2as.c,v 1.16 2009/08/30 20:25:15 erik Exp $
  */
 
 #include <stdio.h>
@@ -91,7 +91,10 @@ x86(struct op_s *prog) {
 		    printf("	incl  (%%eax)\t\t# +\n"),
 		    printf("	addl  $%d,(%%eax)\t\t# + %d\n", prog->val, prog->val));
 		case ZERO:
-			printf("	xor (%%eax),(%%eax)\n");
+			printf("	movl	0, %%eax\t\t# set to zero\n");
+		/*
+			printf("	xor %%eax,%%eax\n");
+		    */
 			break;
 		case PUT:
 			printf("			\t# .\n");
