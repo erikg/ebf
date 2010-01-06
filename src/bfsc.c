@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (C) 2005-2008 Erik Greenwald. All rights reserved.		      *
+ * Copyright (C) 2005-2010 Erik Greenwald. All rights reserved.		      *
  * 									      *
  * Redistribution and use in source and binary forms, with or without	      *
  * modification, are permitted provided that the following conditions	      *
@@ -23,7 +23,7 @@
  * SUCH DAMAGE.								      *
  *****************************************************************************/
 /*
- * $Id: bfsc.c,v 1.1 2008/06/14 13:22:28 erik Exp $
+ * $Id: bfsc.c,v 1.2 2010/01/06 01:06:52 erik Exp $
  */
 
 #include <stdio.h>

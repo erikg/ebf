@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (C) 2005-2008 Erik Greenwald. All rights reserved.		      *
+ * Copyright (C) 2005-2010 Erik Greenwald. All rights reserved.		      *
  * 									      *
  * Redistribution and use in source and binary forms, with or without	      *
  * modification, are permitted provided that the following conditions	      *
@@ -26,7 +26,7 @@
 #define LEX_H
 
 /*
- * $Id: lex.h,v 1.4 2008/06/13 23:23:18 erik Exp $
+ * $Id: lex.h,v 1.5 2010/01/06 01:06:52 erik Exp $
  */
 
 /* the brainfuck lexicon */

@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (C) 2005-2008 Erik Greenwald. All rights reserved.		      *
+ * Copyright (C) 2005-2010 Erik Greenwald. All rights reserved.		      *
  * 									      *
  * Redistribution and use in source and binary forms, with or without	      *
  * modification, are permitted provided that the following conditions	      *
@@ -24,7 +24,7 @@
  *****************************************************************************/
 
 /*
- * $Id: bf2c.c,v 1.13 2008/06/13 23:23:18 erik Exp $
+ * $Id: bf2c.c,v 1.14 2010/01/06 01:06:51 erik Exp $
  */
 
 #include <stdio.h>
@@ -115,7 +115,7 @@ main (int argc, char **argv)
 	    break;
 	case 'v':
 	    printf
-		("%s (bf2c) version $Version$ ($Header: /mnt/fenris/usr/cvs/devel/brainfuck/src/bf2c.c,v 1.13 2008/06/13 23:23:18 erik Exp $)\n",
+		("%s (bf2c) version $Version$ ($Header: /mnt/fenris/usr/cvs/devel/brainfuck/src/bf2c.c,v 1.14 2010/01/06 01:06:51 erik Exp $)\n",
 		*argv);
 	    return 0;
 	case 'h':
